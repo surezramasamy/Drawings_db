@@ -1,0 +1,118 @@
+ 
+  
+ <html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>  </title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+
+
+  </head>
+  <body>
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <div class="container">
+
+    <div class="jumbotron">
+
+          <h1>Organization Name </h1>
+	<h2>Quality Database </h2>
+
+
+      <nav class="navbar navbar-default navbar-static-top"
+      <ul  class="nav navbar-nav"><br>
+
+  <h2><a class="navbar-link", href="{% url "admin:index" %}">Login</a></h2>
+      <h2> <a class="navbar-link", href="{%url 'drgupload_dev' %}" > Development Drawings upload </a></h2>
+	   <h2><a class="navbar-link", href="{% url "drg" %}">Back to Drawings_Homepage</a></h2>
+    <h2><a class="navbar-link", href="{% url "home" %}">Back to Homepage</a></h2>
+
+
+<style>
+#customers {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#customers td, #customers th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#customers tr:nth-child(even){background-color: #f2f2f2;}
+
+#customers tr:hover {background-color: #ddd;}
+
+#customers th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #04AA6D;
+  color: white;
+}
+</style>
+
+<script type="text/javascript">
+</script>
+
+<h2>Download drawings</h2>
+
+
+    <form  action="" method="post">
+        {% csrf_token %}
+       {{ search_form_dev}}
+		
+        <br><button class="btn btn-primary mt-3" type="submit">Search</button>
+    </form>
+    <hr>
+
+     {% if drg_qs_dev %}
+
+    <table id="customers">
+
+       <thead>
+          <th>Customer</th>
+		 <th>Model_Name </th>
+         <th>Part_Name </th>
+		  <th>Feasability</th>
+		   <th>Sample Details</th>
+           <th>Drawing1</th>
+            <th>Drawing2</th>
+			<th>Inspection_report 1</th>
+			<th>Inspection_report 2</th>     
+
+
+
+      </thead>
+
+        {% for i in drg_qs_dev %}
+        <tr>
+
+           <td>{{i.Customer}}</td>
+           <td>{{i.Model_Name}}</td>
+		   <td>{{i.Part_Name}}</td>		   
+			 <td>{{i.Fesability_comments}}</td>
+			  <td>{{i.Sample_details}}</td>
+           {%if i.Drawing1 %}
+           <<td><a href="{{i.Drawing1.url|default_if_none:'#'}}" download>View Drg1 </a></td>
+             {% endif %}
+            {%if i.Drawing2 %}			
+            <<td><a href="{{i.Drawing2.url|default_if_none:'#'}}" download>View Drg2</a></td>
+			 {% endif %}
+			{%if i.Inspection_report1 %}
+           <<td><a href="{{i.Inspection_report1.url|default_if_none:'#'}}" download>View Report1</a></td>
+			 {% endif %}
+			{%if i.Inspection_report2 %}
+           <<td><a href="{{i.Inspection_report2.url|default_if_none:'#'}}" download>View Report2</a></td>
+			 {% endif %}         
+			 
+              {% endfor %}
+                    </tr>
+
+    </table>
+
+     {% else %}
+   <p>No drawings</p>
+
+ {% endif %}
+ 

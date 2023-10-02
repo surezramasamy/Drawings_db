@@ -1,0 +1,129 @@
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>  </title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+
+
+  </head>
+  <body>
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <div class="container">
+
+    <div class="jumbotron">
+
+          <h1>Organization Name </h1>
+	<h2>Quality Database </h2>
+
+
+      <nav class="navbar navbar-default navbar-static-top"
+      <ul  class="nav navbar-nav"><br>
+
+    <h2><a class="navbar-link", href="{% url "admin:index" %}">Login</a></h2>
+	  <h2><a class="navbar-link", href="{% url "capa" %}">CAPA</a></h2>
+	   <h2><a class="navbar-link", href="{% url "capa2" %}">Datewise CAPA details</a></h2>
+    <h2><a class="navbar-link", href="{% url "home" %}">Back to Homepage</a></h2>
+
+
+
+
+      </nav>
+
+
+
+
+
+
+<style>
+#customers {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#customers td, #customers th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#customers tr:nth-child(even){background-color: #f2f2f2;}
+
+#customers tr:hover {background-color: #ddd;}
+
+#customers th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #151B54;
+  color: white;
+}
+</style>
+
+
+
+
+<h2><a class="navbar-link", href="{% url "capacreate" %}">Update Issue </a></h2>
+
+
+
+
+ <form  action="" method="post">
+        {% csrf_token %}
+        {{ search_form}}
+		
+        <br><button class="btn btn-primary mt-3" type="submit">Search</button>
+    </form>
+    <hr>
+	
+
+
+ {% if capa %}
+               
+          <table id="customers">
+             <caption>CAPA</caption>
+            <thead>			
+              <th>Date</th>
+              <th>Customer</th>
+              <th>Part_Name </th>
+			         <th>Sub_assembly</th>
+                <th>Type_of_reporting </th>
+                <th>Issue_reported</th>
+                <th>Qty_rejected</th>
+				 <th>Status</th>         
+				
+                  </thead>
+				  
+			  {% for n in capa %}
+			 
+
+
+              
+            
+             <tr>
+               <td> {{n.date}}               
+               <td>{{n.Customer}}</td>
+                <td>{{n.Part_name}}</td>
+			      	<td>{{n.Sub_assembly}}</td>
+				<td>{{n.Type_of_reporting}}</a></td>
+				<td>{{n.Issue_reported}}</a></td>
+				      <td>{{n.Qty_rejected}}</td>             
+               <td><a href="/capaupdate/{{n.id}}">{{n.Status}}</a></td>   
+               
+              
+			  
+
+              
+
+
+             </tr>
+
+             
+             {% endfor %}
+         </table>
+
+          {% else %}
+     
+
+      {% endif %}
+	  
+	 

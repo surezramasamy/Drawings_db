@@ -1,0 +1,30 @@
+{% extends "home.html"%}
+{% block body_block %}
+
+
+
+<h2>
+  {% if form.instance.pk %}
+  Update Actions
+  {% else %}
+  Update Issue
+  {% endif %}
+  {% load bootstrap4 %}
+    {% bootstrap_css %}
+	  {% bootstrap_javascript jquery='full' %}
+	    {{form.media}}
+
+
+
+</h2>
+
+<form  method="post"  enctype="multipart/form-data">
+  {% csrf_token %}
+  {% bootstrap_form form %}
+
+  <input type="submit" class="btn btn-primary" value="Submit">
+</form>
+
+
+
+{%  endblock %}
